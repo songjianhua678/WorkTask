@@ -1,0 +1,210 @@
+﻿@{
+    Layout = "";
+    ViewData["Title"] = "Home Page";
+}
+
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+
+    <title>工作任务系统</title>
+
+    <script type="text/javascript" src="https://formden.com/static/cdn/formden.js"></script>
+    <!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+    <!--Font Awesome (added because you use icons in your prepend/append)-->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../css/booking.css" rel="stylesheet">
+</head>
+
+<body role="document">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">工作任务系统</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="Home/index">添加工作</a></li>
+                    <li><a href="Record/index">工作任务列表</a></li>
+                    <li><a href="about.html">联系我们</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right hidden-sm">
+                    <li><a style="color:#fff;" href="info.html">欢迎您：admin(系统管理员)</a></li>
+                </ul>
+
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form role="form">
+                    <h2>添加 <small>我的工作</small></h2>
+                    <hr class="colorgraph">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="datestart" name="datestart" placeholder="开始时间" type="text"  />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="dateend" name="dateend" placeholder="结束时间" type="text"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="display_name" id="display_name" class="form-control input-lg" placeholder="项目名称">
+                    </div>
+                    <div class="form-group">
+                        <select id="JobProcess" class="form-control input-lg create-clolor" >
+                            <option>--请选择项目进度--</option>
+                            <option value="1">准备阶段</option>
+                            <option value="2">进行中</option>
+                            <option value="3">项目完成</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="JobLeverl" class="form-control input-lg create-clolor">
+                            <option>--请选择项目级别--</option>
+                            <option value="1">紧急</option>
+                            <option value="2">重要</option>
+                            <option value="3">正常</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="mark" rows="4" class="form-control input-lg" placeholder="备注" cols="20"></textarea>
+                    </div>
+
+                    <hr class="colorgraph">
+                    <div class="row text-center">
+                        <button class="col-xs-12 col-md-4 col-md-offset-4 btn btn-success btn-lg" name="Submit" value="Login" type="button" onclick="publish()">添加</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- Bootstrap core JavaScript
+       ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../js/booking.js"></script>
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <script type="text/javascript">
+	$(document).ready(function(){
+	    var dateStart_input = $('input[name="datestart"]');
+	    var dateEnd_input = $('input[name="dateend"]');
+		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+		dateStart_input.datepicker({
+		    language: 'zh-CN',
+		    format: 'yyyy-mm-dd',
+			container: container,
+			todayHighlight: true,
+			autoclose: true,
+
+		})
+		dateEnd_input.datepicker({
+		    language: 'zh-CN',
+		    format: 'yyyy-mm-dd',
+		    container: container,
+		    todayHighlight: true,
+		    autoclose: true,
+		})
+	})
+
+	function publish() {
+	    var txtWorkName = $.trim($("#display_name").val());
+	    var txtJobProcess = $('#JobProcess').val();
+	    var txtJobLeverl = $('#JobLeverl').val();
+	    var txtWorkMark = $.trim($("#mark").val());
+	    var txtStartTime = $.trim($("#datestart").val());
+	    var txtEndTime = $.trim($("#dateend").val());
+
+	    if (txtStartTime == '开始时间' || txtStartTime=='') {
+	        alert("请填写开始时间");
+	        return false;
+	    }
+	    if (txtEndTime == '结束时间' || txtEndTime=='') {
+	        alert("请填写结束时间");
+	        return false;
+	    }
+	    if (txtWorkName == '项目名称' || txtWorkName=='') {
+	        alert("请填写项目名称");
+	        return false;
+	    }
+	    if (txtJobProcess == '--请选择项目进度--') {
+	        alert("请选择项目进度");
+	        return false;
+	    }
+	    if (txtJobLeverl == '--请选择项目级别--') {
+	        alert("请选择项目级别");
+	        return false;
+	    }
+	    if (txtWorkMark == '备注') {
+	        txtWorkMark = "";
+	    }
+
+
+	    $.post("Home/SaveAdd", { "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobProcess, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime }, function (result) {
+	        if (result == 0) {
+	            alert("添加成功！");
+	        } else {
+	            alert("添加失败！");
+	        }
+	    }, "json");
+	}
+    </script>
+</body>
+</html> 
