@@ -9,9 +9,9 @@ namespace WorkWebCore.Models
     {
         public int Id { get; set; }
 
-        public string Workuser { get; set; }
+        public string username { get; set; }
 
-        public int WorkProcss { get; set; }
+        public string  password { get; set; }
 
 
     }

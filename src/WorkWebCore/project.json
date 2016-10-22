@@ -23,7 +23,9 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "MySql.Data.Core": "7.0.4-IR-191",
     "MySql.Data.EntityFrameworkCore": "7.0.5-IR21",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
+    "Microsoft.AspNetCore.Authorization": "1.0.0",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0"
   },
 
   "tools": {

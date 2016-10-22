@@ -2,6 +2,7 @@
     Layout = "";
     ViewData["Title"] = "Home Page";
 }
+@using System.Security.Claims;
 
 <html lang="zh">
 <head>
@@ -48,7 +49,14 @@
                     <li><a href="../about/index">联系我们</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right hidden-sm">
-                    <li><a style="color:#fff;" href="info.html">欢迎您：admin(系统管理员)</a></li>
+                    @if (User.Identities.Any(u => u.IsAuthenticated))
+                    {
+                        <li>
+                            <a style="color:#fff;" href="info.html">
+                                欢迎您： @User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value (@User.Identity.AuthenticationType)
+                            </a>
+                        </li>
+                    }
                 </ul>
 
             </div><!--/.nav-collapse -->
@@ -138,11 +146,10 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/ie10-viewport-bug-workaround.js"></script>
     <script src="../js/booking.js"></script>
-    <!-- Include Date Range Picker https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js -->
-    <script type="text/javascript" src="~/js/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <script src="~/js/bootstrap-datepicker.zh-CN.min.js"></script>
-    <!--https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css-->
-    <link rel="stylesheet" href="~/js/bootstrap-datepicker/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
     <script type="text/javascript">
 	$(document).ready(function(){
 	    var dateStart_input = $('input[name="datestart"]');
@@ -198,9 +205,10 @@
 	    }
 
 
-	    $.post("Home/SaveAdd", { "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobProcess, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime }, function (result) {
+	    $.post("../Home/SaveAdd", { "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobProcess, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime,"UserName": "@User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value"}, function (result) {
 	        if (result == 0) {
-	            alert("添加成功！"); 
+	            alert("添加成功！");
+	            window.location.href = "../record/index";
 	        } else {
 	            alert("添加失败！");
 	        }

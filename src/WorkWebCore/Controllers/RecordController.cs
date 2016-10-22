@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WorkWebCore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,12 +14,13 @@ namespace WorkWebCore.Controllers
     {
         //默认一页多少条
         int PageSize = 10;
-        
+
         /// <summary>
         /// 展示workrecord记录
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
+        [Authorize]
         public IActionResult Index(int page = 1)
         {
             try

@@ -2,6 +2,7 @@
     Layout = "";
     ViewData["Title"] = "Home Page";
 }
+@using System.Security.Claims;
 <html lang="zh">
 <head>
     <meta charset="utf-8">
@@ -41,7 +42,14 @@
                     <li><a href="../about/index">联系我们</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right hidden-sm">
-                    <li><a style="color:#fff;" href="info.html">欢迎您：admin(系统管理员)</a></li>
+                    @if (User.Identities.Any(u => u.IsAuthenticated))
+                    {
+                        <li>
+                            <a style="color:#fff;" href="info.html">
+                                欢迎您： @User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value (@User.Identity.AuthenticationType)
+                            </a>
+                        </li>
+                    }
                 </ul>
 
             </div><!--/.nav-collapse -->
@@ -83,7 +91,7 @@
                             <tr>
                                 <td><input type="checkbox" class="checkthis" /><input id="HiddenId" type="hidden" value="@x.Id" /></td>
                                 <td>@x.WorkName</td>
-                                <td>李东</td>
+                                <td>@x.UserName</td>
                                 <td>@x.WorkMark</td>
                                 <td>@x.StartTime</td>
                                 <td>@x.EndTime</td>
