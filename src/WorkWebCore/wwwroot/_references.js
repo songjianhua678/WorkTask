@@ -3,6 +3,7 @@
 /// <reference path="../js/bootstrap.js" />
 /// <reference path="../js/bootstrap-datepicker.js" />
 /// <reference path="../js/bootstrap-datepicker.zh-cn.min.js" />
+/// <reference path="../js/bootstrap-datepicker/bootstrap-datepicker.min.js" />
 /// <reference path="../js/ie10-viewport-bug-workaround.js" />
 /// <reference path="../js/jquery.min.js" />
 /// <reference path="../js/npm.js" />
