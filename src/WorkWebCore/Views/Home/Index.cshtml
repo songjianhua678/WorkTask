@@ -208,7 +208,7 @@
 	    $.post("../Home/SaveAdd", { "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobProcess, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime,"UserName": "@User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value"}, function (result) {
 	        if (result == 0) {
 	            alert("添加成功！");
-	            window.location.href = "../record/index";
+	            window.location.href = '@(Url.Action("Index", "Record"))';
 	        } else {
 	            alert("添加失败！");
 	        }
