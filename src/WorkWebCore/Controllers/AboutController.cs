@@ -10,7 +10,7 @@ namespace WorkWebCore.Controllers
 {
     public class AboutController : Controller
     {
-        // GET: /<controller>/
+        // GET: /<controller>
         public IActionResult Index()
         {
             return View();
