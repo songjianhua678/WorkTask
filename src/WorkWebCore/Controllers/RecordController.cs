@@ -11,8 +11,14 @@ namespace WorkWebCore.Controllers
 {
     public class RecordController : Controller
     {
+        //默认一页多少条
         int PageSize = 10;
         
+        /// <summary>
+        /// 展示workrecord记录
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
         public IActionResult Index(int page = 1)
         {
             try
@@ -28,6 +34,47 @@ namespace WorkWebCore.Controllers
                 //写日志记录错误
             }
             return View();
+        }
+
+        /// <summary>
+        /// 更新workRecord
+        /// </summary>
+        /// <param name="WorkName"></param>
+        /// <param name="WorkProcess"></param>
+        /// <param name="WorkLevel"></param>
+        /// <param name="WorkMark"></param>
+        /// <param name="StartTime"></param>
+        /// <param name="EndTime"></param>
+        /// <returns></returns>
+        public JsonResult SaveUpdate(int Id,string WorkName, int WorkProcess, int WorkLevel, string WorkMark, DateTime StartTime, DateTime EndTime)
+        {
+            string result = "";
+            if (Id > 0)
+            {
+                try
+                {
+                    using (var DB = new WorkRecordsContext())
+                    {
+                        var entry = (from t in DB.WorkRecords where t.Id == Id select t).FirstOrDefault();
+                        entry.WorkName = WorkName;
+                        entry.WorkProcss = WorkProcess;
+                        entry.WorkLevel = WorkLevel;
+                        entry.WorkMark = WorkMark;
+                        entry.StartTime = StartTime;
+                        entry.EndTime = EndTime;
+                        DB.WorkRecords.Update(entry);
+                        DB.SaveChanges();
+                        result = entry.Id.ToString(); //成功
+                    }
+                }
+                catch (Exception ex)
+                {
+                    result = "0";//失败
+                }
+            }
+
+
+            return Json(result);
         }
     }
 }

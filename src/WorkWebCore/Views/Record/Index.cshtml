@@ -36,8 +36,8 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="Home/index">添加工作</a></li>
-                    <li class="active"><a href="Record/index">工作任务列表</a></li>
+                    <li><a href="../Home/index">添加工作</a></li>
+                    <li class="active"><a href="../Record/index">工作任务列表</a></li>
                     <li><a href="about.html">联系我们</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right hidden-sm">
@@ -81,7 +81,7 @@
                            @foreach (dynamic x in @ViewBag.Record)
                            {
                             <tr>
-                                <td><input type="checkbox" class="checkthis" /></td>
+                                <td><input type="checkbox" class="checkthis" /><input id="HiddenId" type="hidden" value="@x.Id" /></td>
                                 <td>@x.WorkName</td>
                                 <td>李东</td>
                                 <td>@x.WorkMark</td>
@@ -161,7 +161,6 @@
                     </div>
                     <div class="form-group">
                         <select id="JobProcess" class="form-control input-lg create-clolor">
-                            <option selected="selected">--请选择项目进度--</option>
                             <option value="1">准备阶段</option>
                             <option value="2">进行中</option>
                             <option value="3">项目完成</option>
@@ -169,7 +168,6 @@
                     </div>
                     <div class="form-group">
                         <select id="JobLeverl" class="form-control input-lg create-clolor">
-                            <option selected="selected">--请选择项目级别--</option>
                             <option value="1">紧急</option>
                             <option value="2">重要</option>
                             <option value="3">正常</option>
@@ -181,7 +179,7 @@
 
                 </div>
                 <div class="modal-footer ">
-                    <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> 更新</button>
+                    <button type="button" class="btn btn-warning btn-lg" style="width: 100%;" onclick="updatework()"><span class="glyphicon glyphicon-ok-sign"></span> 更新</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -216,6 +214,6 @@
        ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../js/ie10-viewport-bug-workaround.js"></script>
-    <script src="../js/record.js"></script>
+    <script src="../js/record.js" charset="gb2312"></script>
 </body>
 </html> 
