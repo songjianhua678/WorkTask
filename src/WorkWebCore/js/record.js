@@ -55,7 +55,14 @@ $(".btn-primary").click(function () {
 
 function turnPage(curr_page) {
     var h = window.location.href;
-    window.location.href = h.substring(0, h.indexOf("x") + 1) + "?page=" + curr_page;
+    if (h.indexOf('&') > 0) {
+        window.location.href = h.substr(0,h.length-1) + curr_page;
+    }
+    else
+    {
+        window.location.href = h.substring(0, h.indexOf("x") + 1) + "?page=" + curr_page;
+    }
+    
 }
 
 function updatework() {

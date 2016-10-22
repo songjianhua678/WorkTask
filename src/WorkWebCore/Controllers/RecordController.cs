@@ -21,13 +21,62 @@ namespace WorkWebCore.Controllers
         /// <param name="page"></param>
         /// <returns></returns>
         [Authorize]
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int StartTime=0,int EndTime = 0, int WorkProcss=0, int WorkLevel=0,int page = 1)
         {
             try
             {
                 using (var DB = new WorkRecordsContext())
                 {
-                    ViewBag.Record = DB.WorkRecords.ToList().Skip((page - 1) * PageSize).Take(PageSize).ToList(); ;
+                    //mysql的EF入口没发现sql的执行方法，暂时先这么写
+                    if (StartTime > 0)
+                    {
+                        if (StartTime == 1)
+                        {
+                            ViewBag.Record = DB.WorkRecords.ToList().OrderBy(i => i.StartTime).Skip((page - 1) * PageSize).Take(PageSize).ToList();
+                        }
+                        else
+                        {
+                            ViewBag.Record = DB.WorkRecords.ToList().OrderByDescending(i => i.StartTime).Skip((page - 1) * PageSize).Take(PageSize).ToList();
+                        }
+                    }
+                    else if (EndTime > 0)
+                    {
+                        if (EndTime == 1)
+                        {
+                            ViewBag.Record = DB.WorkRecords.ToList().OrderBy(i => i.EndTime).Skip((page - 1) * PageSize).Take(PageSize).ToList();
+                        }
+                        else
+                        {
+                            ViewBag.Record = DB.WorkRecords.ToList().OrderByDescending(i => i.EndTime).Skip((page - 1) * PageSize).Take(PageSize).ToList();
+                        }
+                    }
+                    else if (WorkProcss > 0)
+                    {
+                        if (WorkProcss == 1)
+                        {
+                            ViewBag.Record = DB.WorkRecords.ToList().OrderBy(i => i.WorkProcss).Skip((page - 1) * PageSize).Take(PageSize).ToList();
+                        }
+                        else
+                        {
+                            ViewBag.Record = DB.WorkRecords.ToList().OrderByDescending(i => i.WorkProcss).Skip((page - 1) * PageSize).Take(PageSize).ToList();
+                        }
+                    }
+                    else if (WorkLevel > 0)
+                    {
+                        if (WorkLevel == 1)
+                        {
+                            ViewBag.Record = DB.WorkRecords.ToList().OrderBy(i => i.WorkLevel).Skip((page - 1) * PageSize).Take(PageSize).ToList();
+                        }
+                        else
+                        {
+                            ViewBag.Record = DB.WorkRecords.ToList().OrderByDescending(i => i.WorkLevel).Skip((page - 1) * PageSize).Take(PageSize).ToList();
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Record = DB.WorkRecords.ToList().Skip((page - 1) * PageSize).Take(PageSize).ToList();
+                    }
+
                     ViewBag.PageHtml = PageingHtml.GetPagingHTML(DB.WorkRecords.ToList().Count, PageSize, page, "turnPage(1Index1)", 5, 2);
                 }
             }

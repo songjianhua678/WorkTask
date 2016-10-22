@@ -46,7 +46,7 @@
                     {
                         <li>
                             <a style="color:#fff;" href="info.html">
-                                欢迎您： @User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value (@User.Identity.AuthenticationType)
+                                欢迎您： @Html.Raw(User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value) (@Html.Raw(User.Identity.AuthenticationType))
                             </a>
                         </li>
                     }
@@ -77,10 +77,10 @@
                         <th>项目名称</th>
                         <th>负责人</th>
                         <th>备注</th>
-                        <th>开始时间</th>
-                        <th>结束时间</th>
-                        <th>项目级别</th>
-                        <th>项目进度</th>
+                        <th width="100px">开始时间<a href="../record/index?StartTime=1&page=1">▲</a><a href="../record/index?StartTime=2&page=1">▼</a></th>
+                        <th width="100px">结束时间<a href="../record/index?EndTime=1&page=1">▲</a><a href="../record/index?EndTime=2&page=1">▼</a></th>
+                        <th width="120px">项目级别<a href="../record/index?WorkLevel=1&page=1">▲</a><a href="../record/index?WorkLevel=2&page=1">▼</a></th>
+                        <th width="120px">项目进度<a href="../record/index?WorkProcss=1&page=1">▲</a><a href="../record/index?WorkProcss=2&page=1">▼</a></th>
                         <th>Edit</th>
 
                         <!--<th>Delete</th>-->

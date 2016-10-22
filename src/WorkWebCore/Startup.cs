@@ -78,7 +78,7 @@ namespace WorkWebCore
                 LoginPath = new PathString("/Account/Unauthorized/"),
                 AccessDeniedPath = new PathString("/Account/Forbidden/"),
                 AutomaticAuthenticate = true,
-                AutomaticChallenge = true
+                AutomaticChallenge = true,
             });
 
             app.UseMvc(routes =>

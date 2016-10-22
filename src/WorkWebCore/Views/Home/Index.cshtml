@@ -53,7 +53,7 @@
                     {
                         <li>
                             <a style="color:#fff;" href="info.html">
-                                欢迎您： @User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value (@User.Identity.AuthenticationType)
+                                欢迎您： @Html.Raw(User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value) (@Html.Raw(User.Identity.AuthenticationType))
                             </a>
                         </li>
                     }
@@ -151,7 +151,7 @@
     <script src="~/js/bootstrap-datepicker.zh-CN.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
     <script type="text/javascript">
-	$(document).ready(function(){
+        $(document).ready(function () {
 	    var dateStart_input = $('input[name="datestart"]');
 	    var dateEnd_input = $('input[name="dateend"]');
 		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -170,7 +170,11 @@
 		    todayHighlight: true,
 		    autoclose: true,
 		})
-	})
+        })
+
+
+        var Entities = require('html-entities').XmlEntities;
+        entities = new Entities();
 
 	function publish() {
 	    var txtWorkName = $.trim($("#display_name").val());
@@ -205,7 +209,7 @@
 	    }
 
 
-	    $.post("../Home/SaveAdd", { "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobProcess, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime,"UserName": "@User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value"}, function (result) {
+	    $.post("../Home/SaveAdd", { "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobProcess, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime, "UserName": "@Html.Raw(User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value)" }, function (result) {
 	        if (result == 0) {
 	            alert("添加成功！");
 	            window.location.href = "../record/index";
