@@ -36,17 +36,15 @@ $(".btn-primary").click(function () {
         $("#JobProcess option:eq(2)").attr("selected", true);
     }
     $('#JobProcess').val($('#JobProcess option[selected]').val());
-    //$("#JobProcess option:eq(0)").text(txtJobProcess);
 
     if (txtJobLeverl == $('#JobLeverl option:eq(0)').text()) {
         $("#JobLeverl option:eq(0)").attr("selected", true);
     } else if (txtJobLeverl == $('#JobLeverl option:eq(1)').text()) {
         $("#JobLeverl option:eq(1)").attr("selected", true);
     } else if (txtJobLeverl == $('#JobLeverl option:eq(2)').text()) {
-        $("#JobLeverl option:eq(2)]").attr("selected", true);
+        $("#JobLeverl option:eq(2)").attr("selected", true);
     }
     $('#JobLeverl').val($('#JobLeverl option[selected]').val());
-    //$("#JobLeverl option:eq(0)").text(txtJobLeverl);
 
     $("#mark").val($(this).parent('p').parent('td').parent('tr').find('td').eq(3).text());//工作备注
 });
@@ -62,8 +60,8 @@ function turnPage(curr_page) {
 
 function updatework() {
     var txtWorkName = $.trim($("#display_name").val());
-    var txtJobProcess = $('#JobProcess').val();
-    var txtJobLeverl = $('#JobLeverl').val();
+    var txtJobProcess = $('#JobProcess option:selected').val();
+    var txtJobLeverl = $('#JobLeverl option:selected').val();
     var txtWorkMark = $.trim($("#mark").val());
     var txtStartTime = $.trim($("#datestart").val());
     var txtEndTime = $.trim($("#dateend").val());
@@ -93,7 +91,7 @@ function updatework() {
     }
 
 
-    $.post("../Record/SaveUpdate", { "Id": id, "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobProcess, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime }, function (result) {
+    $.post("../Record/SaveUpdate", { "Id": id, "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobLeverl, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime }, function (result) {
         if (result > 0) {
             alert("添加成功！");
             window.location.href = window.location.href;
