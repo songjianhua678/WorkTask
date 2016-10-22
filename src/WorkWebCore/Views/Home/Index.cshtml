@@ -2,6 +2,7 @@
     Layout = "";
     ViewData["Title"] = "Home Page";
 }
+@using System.Security.Claims;
 
 <html lang="zh">
 <head>
@@ -48,7 +49,14 @@
                     <li><a href="../about/index">联系我们</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right hidden-sm">
-                    <li><a style="color:#fff;" href="info.html">欢迎您：admin(系统管理员)</a></li>
+                    @if (User.Identities.Any(u => u.IsAuthenticated))
+                    {
+                        <li>
+                            <a style="color:#fff;" href="info.html">
+                                欢迎您： @User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value (@User.Identity.AuthenticationType)
+                            </a>
+                        </li>
+                    }
                 </ul>
 
             </div><!--/.nav-collapse -->
@@ -197,9 +205,10 @@
 	    }
 
 
-	    $.post("Home/SaveAdd", { "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobProcess, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime }, function (result) {
+	    $.post("../Home/SaveAdd", { "WorkName": txtWorkName, "WorkProcess": txtJobProcess, "WorkLevel": txtJobProcess, "WorkMark": txtWorkMark, "StartTime": txtStartTime, "EndTime": txtEndTime,"UserName": "@User.Identities.First(u => u.IsAuthenticated).FindFirst(ClaimTypes.Name).Value"}, function (result) {
 	        if (result == 0) {
 	            alert("添加成功！");
+	            window.location.href = "../record/index";
 	        } else {
 	            alert("添加失败！");
 	        }

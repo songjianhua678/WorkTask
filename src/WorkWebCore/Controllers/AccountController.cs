@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WorkWebCore.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,51 +14,65 @@ namespace WorkWebCore.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: /<controller>/
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult LogOn(string username, string password)
-        {
-            if (ModelState.IsValid)
-            {
-                //Cms_User user = CmsUserData.GetUser(model.UserName, password);
-                //if (user != null)
-                //{
-                //    //FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                //    FormsAuthenticationTicket Ticket = new FormsAuthenticationTicket(1, model.UserName, DateTime.Now, DateTime.Now.AddHours(8), false, model.UserName, "/");
-                //    string strEncryptTicket = FormsAuthentication.Encrypt(Ticket);
-                //    HttpCookie UserCookie = new HttpCookie(FormsAuthentication.FormsCookieName, strEncryptTicket);
-                //    if (model.RememberMe)
-                //    {
-                //        UserCookie.Expires = Ticket.Expiration;
-                //    }
-                //    System.Web.HttpContext.Current.Response.Cookies.Add(UserCookie);
-                //    Cms_User cmsuser = CmsUserData.GetUser(model.UserName);
-                //    SaveUserCookie(model.UserName, cmsuser.User_name, cmsuser.User_passwd);//2.0登录用
 
-                //    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                //        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                //    {
-                //        return Redirect(returnUrl);
-                //    }
-                //    else
-                //    {
-                //        return RedirectToAction("Index", "");
-                //    }
-                //}
-                //else
-                //{
-                //    FormsAuthentication.SetAuthCookie(model.UserName, false);
-                //    ModelState.AddModelError("", "用户名或密码不正确。");
-                //}
+        public async Task<IActionResult> Unauthorized(string username,string password,string returnUrl = null)
+        {
+            try
+            {
+                using (var DB = new WorkRecordsContext())
+                {
+                    var usermodel = (from t in DB.WorkUser where t.username == username && t.password == password select t).FirstOrDefault();
+                    if (usermodel != null)
+                    {
+                        List<Claim> claims = new List<Claim>();
+                        claims.Add(new Claim(ClaimTypes.Name, username, ClaimValueTypes.String, ""));
+                        var userIdentity = new ClaimsIdentity("管理员");
+                        userIdentity.AddClaims(claims);
+                        var userPrincipal = new ClaimsPrincipal(userIdentity);
+                        await HttpContext.Authentication.SignInAsync("MyCookieMiddlewareInstance", userPrincipal,
+                            new AuthenticationProperties
+                            {
+                                ExpiresUtc = DateTime.UtcNow.AddMinutes(20),
+                                IsPersistent = false,
+                                AllowRefresh = false
+                            });
+
+                        if (Url.IsLocalUrl(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Account");//登录失败
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", "Account");//失败
             }
 
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
+        }
+
+        public IActionResult Forbidden()
+        {
             return View();
         }
+
+
+
     }
 }

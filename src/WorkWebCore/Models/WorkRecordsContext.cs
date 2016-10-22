@@ -16,7 +16,7 @@ namespace WorkWebCore.Models
         
         //}
 
-        public DbSet<Employee> employees { get; set; }
+        public DbSet<WorkUser> WorkUser { get; set; }
 
         public DbSet<WorkRecords> WorkRecords { get; set; }
 
