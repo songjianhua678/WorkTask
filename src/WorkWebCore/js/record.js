@@ -22,9 +22,8 @@ $(".btn-primary").click(function () {
     $("#display_name").val($(this).parent('p').parent('td').parent('tr').find('td').eq(1).text());//项目名称
 
     var txtJobProcess = $(this).parent('p').parent('td').parent('tr').find('td').eq(7).text();//工作进度
-    alert(txtJobProcess);
     var txtJobLeverl = $(this).parent('p').parent('td').parent('tr').find('td').eq(6).text();//工作级别
-    alert(txtJobLeverl);
+
 
 
     $("#JobProcess option").attr("selected", false);
